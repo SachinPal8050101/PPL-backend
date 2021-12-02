@@ -11,9 +11,6 @@ let postSchema=new mongoose.Schema({
   category:String,
   image:String,
   time :String,
-  date:String,
-  like:Array,
-  unlike:Array,
   fullName:String
 })
 module.exports=mongoose.model('posts',postSchema);

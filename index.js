@@ -177,12 +177,19 @@ app.post('/login',(req,res)=>{
     if(err)
     {
          console.log(err)
+         res.send({error:true})
     }
     else{
+      if( user===null){
+        res.send({error:'eorrr'})
+        return;
+      }
     bcrypt.compare(password,user.password, function(err, resp) {
       if(err)
       {
         console.log(err);
+        res.send({error:'eorrr'})
+
       }
         else{
           jwt.sign({user}, 'secretkey', { expiresIn: '1h' }, (err, token) => {
@@ -237,18 +244,24 @@ app.post('/uploadpostcontent',(req,res)=>{
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
   }
+  console.log('ggggggggggggg---------',req.files)
   var sampleFile = req.files.image;
   console.log('pppppppp',sampleFile)
 fs.readFile(sampleFile.path, function(err, data){
-  var path = '../post_images' + '/' + sampleFile.name;
+  if(err){
+    console.log("<<<<<<<",err)
+  }
+  var path = './public/post_images' + '/' + sampleFile.name;
+  console.log("path>>>", path, "dat>>", data);
   fs.writeFile(path, data, function(err) {
-    console.log(err)
+    console.log("writefile>>>", err);
   });
 });
     
   const date=new Date()
       let ti=date.getHours()+date.getMinutes()
-  const {title,category,userId,like,unlike,fullName}=req.body;
+     
+  const {userId,title,category,fullName}=req.body;
   console.log(fullName)
      const posts = new Posts({
       _id:new mongoose.Types.ObjectId(),
@@ -257,9 +270,6 @@ fs.readFile(sampleFile.path, function(err, data){
          category,
          image:'post_images/'+sampleFile.name,
          time:new Date().toLocaleTimeString(),
-         date:new Date().toLocaleDateString(),
-         like, 
-         unlike,
          fullName
      })
 
