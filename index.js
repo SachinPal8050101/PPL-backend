@@ -288,9 +288,10 @@ fs.readFile(sampleFile.path, function(err, data){
 
 // Get  posts data from database
 app.post('/getPost',async (req,res)=>{
+  console.log('hh')
   Posts.find({},(err,data)=>{
       res.send(data)
-  }).sort({$natural:-1})
+  }).skip(req.body.skip).limit(7).sort({$natural:-1})
 })
 
 // get filter data 
