@@ -273,7 +273,7 @@ app.post("/getPost", async (req, res) => {
   Posts.find({}, (err, data) => {
     res.send(data);
   })
-  .sort({time:-1}).skip(req.body.skip)
+  .sort({$natural:-1}).skip(req.body.skip)
     .limit(3);
 });
 
