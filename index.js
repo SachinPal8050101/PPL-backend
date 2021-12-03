@@ -250,12 +250,10 @@ app.post("/uploadpostcontent", (req, res) => {
   const { userId, title, category, fullName } = req.body;
   console.log(fullName);
   const posts = new Posts({
-    _id: new mongoose.Types.ObjectId(),
     userId,
     title,
     category,
     image: "post_images/" + sampleFile.name,
-    time: new Date().toLocaleTimeString(),
     fullName,
   });
 
@@ -275,7 +273,7 @@ app.post("/getPost", async (req, res) => {
   Posts.find({}, (err, data) => {
     res.send(data);
   })
-    .skip(req.body.skip)
+  .sort({time:-1}).skip(req.body.skip)
     .limit(3);
 });
 

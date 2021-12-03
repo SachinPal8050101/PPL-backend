@@ -5,12 +5,11 @@ const mongoose = require('mongoose')
 
 
 let postSchema=new mongoose.Schema({
-  _id:mongoose.Schema.Types.ObjectId,
   userId:String,
   title:String,
   category:String,
   image:String,
-  time :String,
+  time :{type: Date, default: Date.now()},
   fullName:String
 })
 module.exports=mongoose.model('posts',postSchema);
