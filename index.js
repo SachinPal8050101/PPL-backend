@@ -126,7 +126,7 @@ app.post("/register", async (req, res) => {
     }
   });
 });
-app.listen(5000, () => {
+app.listen(3001, () => {
   console.log("Api called");
 });
 
@@ -229,6 +229,7 @@ app.post("/resetpassword", (req, res) => {
 //Upload Post Api)
 
 app.post("/uploadpostcontent", (req, res) => {
+  console.log('filebecknd------------->>>',req.files)
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send("No files were uploaded.");
   }
