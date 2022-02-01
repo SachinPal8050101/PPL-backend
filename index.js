@@ -239,9 +239,11 @@ app.post("/uploadpostcontent", (req, res) => {
     if (err) {
       console.log("<<<<<<<", err);
     }
+    console.log('data->>>>',data);
     var path = "./public/post_images" + "/" + sampleFile.name;
     fs.writeFile(path, data, function (err) {
       console.log("writefile>>>", err);
+      console.log('data->>>>',data);
     });
   });
 
